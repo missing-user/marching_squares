@@ -1,0 +1,112 @@
+/* Overriding default colors in Skeleton CSS framework */
+/* Colors from https://en.wikipedia.org/wiki/Tango_Desktop_Project#Palette */
+/* Body */
+body {
+  color: #d3d7cf;
+  background: #2e3436;
+}
+/* Links */
+a {
+  color: #729fcf;
+}
+a:hover {
+  color: #eeeeec;
+}
+
+/* Buttons */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  color: #d3d7cf;
+  border: 1px solid #babdb6;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #eeeeec;
+  border: 1px solid #eeeeec;
+}
+
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #2e3436;
+  background-color: #fcaf3e;
+  border-color: #fcaf3e;
+}
+
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #2e3436;
+  background-color: #f57900;
+  border-color: #f57900;
+}
+
+/* input range */
+input[type="range"]  {
+  background-color: #babdb6;
+}
+input[type="range"]::-webkit-slider-thumb {
+  background-color: #d3d7cf;
+}
+input[type=range]:focus {
+  background-color: #eeeeec;
+}
+
+/* Forms */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  background-color: #2e3436;
+  border: 1px solid #babdb6;
+}
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #fcaf3e;
+}
+
+/* Code */
+code {
+  color: #fff;
+  background: #555753;
+  border: #555753;
+}
+
+/* Tables */
+td {
+  border-bottom: 1px solid #eeeeec;
+}
