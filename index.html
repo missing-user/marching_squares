@@ -30,7 +30,7 @@
           <output id="resolutiono" class="u-pull-right" name="result">10</output class="u-pull-right">
         </div>
         <div class="one-half column">
-          <button type="button" name="button" onclick="interpolation=!interpolation; this.textContent = interpolation?'interpolation on':'interpolation off'">interpolation on</button>
+          <button type="button" class="u-full-width" name="button" onclick="interpolation=!interpolation; this.textContent = interpolation?'interpolation on':'interpolation off'">interpolation on</button>
         </div>
       </div>
 
@@ -50,7 +50,7 @@
           primary = e.matches
             ? "#d3d7cf"
             : "#333";
-          console.log("theme change detected, setting color to", maincolor);
+          console.log("theme change detected, setting color to", primary);
         });
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) 
           primary = "#d3d7cf";

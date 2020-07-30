@@ -38,11 +38,11 @@ function generateCircles() {
 }
 
 function generateMap() {
-	inputValues = new Array(0 | (main_canvas.height / rez));
+	inputValues = new Array(0 | (1 + main_canvas.height / rez));
 	//the grid is one smaller in x and y direction than the input
 	gridValues = new Array(inputValues.length - 1);
 	for (var y = 0; y < inputValues.length; y++) {
-		inputValues[y] = new Array(0 | (main_canvas.width / rez));
+		inputValues[y] = new Array(0 | (1 + main_canvas.width / rez));
 	}
 	for (var y = 0; y < gridValues.length; y++) {
 		gridValues[y] = new Array(inputValues[0].length - 1);
