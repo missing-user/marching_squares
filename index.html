@@ -15,31 +15,47 @@
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="column" style="margin-top: 25%">
-          <h4>Template page</h4>
+      <div class="row" style="margin-top: 25%">
+        <div class="twelve column">
+          <h4>Marching Squares</h4>
           <hr>
-          <p>A small paragraph</p>
+          <p>An implementation of the marching squares algorithm to distract me from the upcoming exams.</p>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="one-half column">
+          <input id="resolution" type="range" min="5" step="1" max="50" value="10" class="slider" oninput="rez = parseInt(this.value); generateMap(); document.getElementById('resolutiono').textContent=this.value">
+          <label for="resolution" class="u-pull-left">resolution</label>
+          <output id="resolutiono" class="u-pull-right" name="result">10</output class="u-pull-right">
+        </div>
+        <div class="one-half column">
+          <button type="button" name="button" onclick="interpolation=!interpolation; this.textContent = interpolation?'interpolation on':'interpolation off'">interpolation on</button>
         </div>
       </div>
 
       <div class="row">
-        <div class="one-third column">
-          <label for="inputrange">inputrange</label>
-          <input id="inputrange" type="range" name="" value="">
-        </div>
-        <div class="one-third column">
-          <h3>an amazing heading</h3>
-          <p>interesting paragraph with a bit of text and...</p>
-          <button type="button" name="button">some cool button</button>
-          <button type="button" class="button-primary" name="button">button</button>
-
-        </div>
-        <div class="one-third column">
-          <img src="images/favicon.png" class="u-max-full-width" alt="and a fun image">
+        <div class="twelve column">
+          <canvas id="canvas" class="u-full-width" width="960" height="960"></canvas>
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      var secondary = "#F00"
+      var primary = "#333"
+
+      //set the colorscheme
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addListener(e => {
+          primary = e.matches
+            ? "#d3d7cf"
+            : "#333";
+          console.log("theme change detected, setting color to", maincolor);
+        });
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) 
+          primary = "#d3d7cf";
+        }
+    </script>
   </div>
 </div>
 <script type="text/javascript" src="scripts/script.js"></script>
