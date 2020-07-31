@@ -15,6 +15,7 @@
 
   </head>
   <body>
+    <canvas id="canvas" width="960" height="960"></canvas>
     <!-- detect color scheme -->
     <script type="text/javascript">
       var secondary = "#F00"
@@ -35,38 +36,45 @@
 
     <!-- header and intro text -->
     <div class="container">
-      <div class="row" style="margin-top: 20%">
-        <div class="twelve column">
-          <h2>Marching Squares</h2>
-          <p>An implementation of the marching squares algorithm to distract me from the upcoming exams. Scroll down to see an explanation of how the algorithm works, or just play around with the finished demo at the top of the page.</p>
-        </div>
-      </div>
+      <section style="height: 100vh;">
 
-      <!-- the large main canvas -->
-      <div class="row">
-        <div class="twelve column">
-          <canvas id="canvas" class="u-full-width" width="960" height="960"></canvas>
+        <div class="row" style="padding-top: 25%">
+          <div class="twelve column">
+            <h2>Marching Squares</h2>
+            <p>An implementation of the marching squares algorithm to distract me from the upcoming exams.
+              <br>
+              Change these settings to affect the background!
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- buttons and sliders for the main demo -->
-      <div class="row">
-        <div class="one-half column">
-          <input id="resolution" type="range" min="5" step="1" max="50" value="10" class="slider" oninput="m.rez = parseInt(this.value); m.generateMap(); document.getElementById('resolutiono').textContent=this.value">
-          <label for="resolution" class="u-pull-left">resolution</label>
-          <output id="resolutiono" class="u-pull-right" name="result">10</output class="u-pull-right">
+        <!-- buttons and sliders for the main demo -->
+        <div class="row">
+          <div class="one-half column">
+            <input id="resolution" style="direction: rtl" type="range" min="5" step="1" max="50" value="10" class="slider" oninput="m.rez = parseInt(this.value); m.generateMap(); document.getElementById('resolutiono').textContent=this.value">
+            <label for="resolution" class="u-pull-left">resolution</label>
+            <output id="resolutiono" class="u-pull-right" name="result">10</output class="u-pull-right">
+
+            <input id="density" type="range" min="5" step="1" max="20" value="12" class="slider" oninput="m.circleCount = parseInt(this.value); m.setCircleRadius(64-2*parseInt(this.value)); document.getElementById('densityo').textContent=this.value">
+            <label for="resolution" class="u-pull-left">blob density</label>
+            <output id="densityo" class="u-pull-right" name="result">12</output class="u-pull-right">
+
+          </div>
+          <div class="one-half column">
+            <button type="button" class="u-full-width" name="button" onclick="m.interpolation=!m.interpolation; this.textContent = m.interpolation?'interpolation on':'interpolation off'">interpolation on</button>
+            <button type="button" class="u-full-width" name="button" onclick="m.showCircles=!m.showCircles; this.textContent = m.showCircles?'hide circles':'show circles'">show circles</button>
+          </div>
         </div>
-        <div class="one-half column">
-          <button type="button" class="u-full-width" name="button" onclick="m.interpolation=!m.interpolation; this.textContent = m.interpolation?'interpolation on':'interpolation off'">interpolation on</button>
-        </div>
-      </div>
+      </section>
 
       <!-- the explanation section -->
-      <div class="row" style="margin-top: 20%">
+      <div class="row">
         <div class="twelve column">
           <h4>What is this?</h4>
           <p>This is an implementation of the
             <a href="www.wikipedia.org/wiki/Marching_squares">marching squares algorithm</a>. It's point is to draw contours around regions of scalar values, e.g. height lines on maps or transparency masks. Here's an overview of how it works:
+            <br>
+            <br>
           </div>
         </div>
 
@@ -84,10 +92,10 @@
         <div class="row">
           <div class="one-half column">
             <h5>2. Fill a single cell</h5>
-            <p>Since there's a finite number of possible corner configurations, we can explicitly specify cases for all of them. In the case of rectangular 2D grids like here, these are all the possible configurations and the lines that will be drawn for each
-              case. In the corner of each cell you can see the value of that "corner".
-              <br><br>
-              At first we just want to know if this value is above or below a certain threshold, (in our case one) to draw lines accordingly.
+            <p>The basic idea behind marching squares is, that we can treat each scalar entry of our grid as a cell corner. For each corner we check, if the value is above or below a certain threshold (in my case 1) and set it to be "inside" or "outside" of our
+              contour accordingly.
+              <br>
+              We then draw lines depending on what corners are supposed to be inside or outside of our contour. Since there's a finite number of possible corner configurations, we can explicitly specify cases for all 16 of them.
             </p>
           </div>
           <div class="one-half column">
@@ -116,18 +124,18 @@
         <div class="row">
           <div class="twelve column">
             <h5>4. Linear interpolation</h5>
-            <p>The final step is to smooth out the lines, by adjusting their position. For that, we linearly interpolate our threshold value between the two adjacent corner values. For example with my threshold value of 1, if one corner point has a value of 0.5
-              and The adjacent corner has a value of 1.5, the line segment will be placed exactly in the middle. If the corners would be 0.5 and 3, the line would be placed a lot closer to the value it's closer to. The linear interpolation for a threshold of one
-              is given by the following formula:
+            <p>The final step is to smooth out the lines, by adjusting their position. For that, we linearly interpolate our threshold value between the two adjacent corner values. I for example am using a threshold value of 1, so if one corner point has a value
+              of 0.5 and The adjacent corner has a value of 1.5, the line segment will be placed exactly in the middle. If the corners had the values 0.5 and 3, the line would be placed a lot closer to the left. This kind of linear interpolation is given by the
+              following formula:
               <br>
-              <br>
-              With x being the left corner value and y the right.
               <br>
               <code>f(x, y)(1 - x) / (y - x)</code>
-              <br>f(x,y) then gives us a percentage, where to place our line endpoint.
+              <br>
+              With x being the left corner value, y the right and a threshold of 1.
+              <br>f(x, y) then returns a percentage describing the resulting points position.
               <br>
               <br>
-              When we apply that, The resolting contours look like this:</p>
+              With interpolation, the final contours look like this:</p>
           </div>
         </div>
         <div class="row">
@@ -165,16 +173,39 @@
 
     <script type="text/javascript">
 
-      m = new MarchingSquares("canvas", {
+      var m = new MarchingSquares("canvas", {
+        circleRadius: 40,
         stepFunc() {
           this.moveCircles();
           this.updateGridPoints();
           this.drawLines();
           this.drawPoints();
+          if (this.showCircles) {
+            this.drawCircles();
+          }
         }
       })
+      window.addEventListener('resize', m.setCanvasSize.bind(m));
 
-      coarseNoInterp = new MarchingSquares("gridValuesDemo", {
+      window.onscroll = function () {
+        scrollFunction()
+      };
+
+      function scrollFunction() {
+        endpoint = window.innerHeight
+        startpoint = window.innerHeight / 8
+        if (document.documentElement.scrollTop > endpoint + startpoint) {
+          m.paused = true
+          m.ctx.filter = "blur(2px)";
+        } else {
+          blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 18))
+          m.ctx.filter = ["blur(", blur, "px)"].join('');
+          m.ctx.globalAlpha = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 1, 0))
+          m.paused = false
+        }
+      }
+
+      var gridValuesDemo = new MarchingSquares("gridValuesDemo", {
         resolution: 50,
         interpolation: false,
         circleCount: 5,
@@ -185,28 +216,30 @@
           this.drawCircles();
           this.drawPoints();
         }
-      })
-
-      noInterp = new MarchingSquares("coarseNoInterp", {
+      });
+      var coarseNoInterp = new MarchingSquares("coarseNoInterp", {
         resolution: 50,
         circleCount: 5,
         interpolation: false,
         circleRadius: 80
-      })
-      noInterp = new MarchingSquares("noInterp", {
+      });
+
+      var noInterp = new MarchingSquares("noInterp", {
         resolution: 10,
         circleCount: 5,
         interpolation: false
-      })
-      highResDemo = new MarchingSquares("highResDemo", {
+      });
+
+      var highResDemo = new MarchingSquares("highResDemo", {
         resolution: 10,
         circleCount: 8
-      })
-      interpolatedDemo = new MarchingSquares("interpolatedDemo", {
+      });
+
+      var interpolatedDemo = new MarchingSquares("interpolatedDemo", {
         resolution: 50,
         circleCount: 5,
         circleRadius: 80
-      })
+      });
     </script>
   </body>
 </html>
