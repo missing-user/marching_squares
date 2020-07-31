@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Marching squares</title>
     <!-- MOBILE––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
@@ -164,21 +164,21 @@
     <script type="text/javascript" src="scripts/individualElements.js"></script>
 
     <script type="text/javascript">
+
       m = new MarchingSquares("canvas", {
         stepFunc() {
           this.moveCircles();
           this.updateGridPoints();
           this.drawLines();
+          this.drawPoints();
         }
       })
-    </script>
-    <script type="text/javascript">
 
       coarseNoInterp = new MarchingSquares("gridValuesDemo", {
         resolution: 50,
         interpolation: false,
         circleCount: 5,
-        circleRadius: 30,
+        circleRadius: 80,
         stepFunc() {
           this.moveCircles();
           this.updateGridPoints();
@@ -191,23 +191,21 @@
         resolution: 50,
         circleCount: 5,
         interpolation: false,
-        circleRadius: 30
+        circleRadius: 80
       })
       noInterp = new MarchingSquares("noInterp", {
         resolution: 10,
         circleCount: 5,
-        interpolation: false,
-        circleRadius: 30
+        interpolation: false
       })
       highResDemo = new MarchingSquares("highResDemo", {
         resolution: 10,
-        circleCount: 5,
-        circleRadius: 30
+        circleCount: 8
       })
       interpolatedDemo = new MarchingSquares("interpolatedDemo", {
         resolution: 50,
         circleCount: 5,
-        circleRadius: 30
+        circleRadius: 80
       })
     </script>
   </body>

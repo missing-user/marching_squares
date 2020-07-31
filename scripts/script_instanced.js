@@ -1,14 +1,27 @@
+let dpr = window.devicePixelRatio || 1;
+
 class MarchingSquares {
 	constructor(canvasId, args = {}) {
 		this.main_canvas = document.getElementById(canvasId);
 		this.ctx = this.main_canvas.getContext("2d");
 
+		// Get the size of the canvas in CSS pixels.
+		let rect = this.main_canvas.getBoundingClientRect();
+		// Give the canvas pixel dimensions of their CSS size * the device pixel ratio.
+		this.main_canvas.width = rect.width * dpr;
+		this.main_canvas.height = rect.height * dpr;
+		this.ctx.scale(dpr, dpr);
+
+		this.width = rect.width;
+		this.height = rect.height;
+
 		this.inputValues = args.inputValues || [];
-		this.gridValues = args.inputValues || [];
-		this.circles = args.inputValues || [];
+		this.gridValues = args.gridValues || [];
+		this.circles = args.circles || [];
 		this.rez = args.resolution || 10;
 		this.circleCount = args.circleCount || 12;
-		this.circleRadius = args.circleRadius || 60;
+		this.circleRadius =
+			(args.circleRadius * this.width) / 1000 || (60 * this.width) / 1000;
 		if ("interpolation" in args) this.interpolation = args.interpolation;
 		else this.interpolation = true;
 
@@ -38,11 +51,11 @@ class MarchingSquares {
 	//initialization methods
 	generateCircle() {
 		var circle = {
-			x: Math.random() * this.main_canvas.width,
-			y: Math.random() * this.main_canvas.height,
+			x: Math.random() * this.width,
+			y: Math.random() * this.height,
 			vx: 2 * Math.random() - 1,
 			vy: 2 * Math.random() - 1,
-			r: 30 + this.circleRadius * Math.random()
+			r: this.circleRadius + this.circleRadius * Math.random()
 		};
 
 		circle.r2 = circle.r * circle.r;
@@ -58,13 +71,11 @@ class MarchingSquares {
 	}
 
 	generateMap() {
-		this.inputValues = new Array(0 | (1 + this.main_canvas.height / this.rez));
+		this.inputValues = new Array(0 | (1 + this.height / this.rez));
 		//the grid is one smaller in x and y direction than the input
 		this.gridValues = new Array(this.inputValues.length - 1);
 		for (var y = 0; y < this.inputValues.length; y++) {
-			this.inputValues[y] = new Array(
-				0 | (1 + this.main_canvas.width / this.rez)
-			);
+			this.inputValues[y] = new Array(0 | (1 + this.width / this.rez));
 		}
 		for (var y = 0; y < this.gridValues.length; y++) {
 			this.gridValues[y] = new Array(this.inputValues[0].length - 1);
@@ -79,19 +90,17 @@ class MarchingSquares {
 			circle.y += circle.vy;
 
 			//bounce the circles off walls
-			if (circle.x + circle.r > this.main_canvas.width)
-				circle.vx = -Math.abs(circle.vx);
+			if (circle.x + circle.r > this.width) circle.vx = -Math.abs(circle.vx);
 			else if (circle.x - circle.r < 0) circle.vx = Math.abs(circle.vx);
-			if (circle.y + circle.r > this.main_canvas.height)
-				circle.vy = -Math.abs(circle.vy);
+			if (circle.y + circle.r > this.height) circle.vy = -Math.abs(circle.vy);
 			else if (circle.y - circle.r < 0) circle.vy = Math.abs(circle.vy);
 		}
 
 		let rect = this.main_canvas.getBoundingClientRect();
 		let x = mouseCircle.gx - rect.left;
-		x *= this.main_canvas.width / rect.width;
+		x *= this.width / rect.width;
 		let y = mouseCircle.gy - rect.top;
-		y *= this.main_canvas.height / rect.height;
+		y *= this.height / rect.height;
 
 		mouseCircle.x = x;
 		mouseCircle.y = y;
@@ -240,7 +249,7 @@ class MarchingSquares {
 
 	stepSimulation(ref) {
 		//draw stuff
-		ref.ctx.clearRect(0, 0, this.main_canvas.width, this.main_canvas.height);
+		ref.ctx.clearRect(0, 0, this.width, this.height);
 
 		ref.stepFunc();
 
