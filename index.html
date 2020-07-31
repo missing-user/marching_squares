@@ -196,10 +196,8 @@
         startpoint = window.innerHeight / 8
         if (document.documentElement.scrollTop > endpoint + startpoint) {
           m.paused = true
-          m.ctx.filter = "blur(2px)";
         } else {
-          blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 18))
-          m.ctx.filter = ["blur(", blur, "px)"].join('');
+          //blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 12)); m.ctx.filter = ["blur(", blur, "px)"].join('');
           m.ctx.globalAlpha = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 1, 0))
           m.paused = false
         }
