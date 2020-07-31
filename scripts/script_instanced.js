@@ -85,7 +85,7 @@ class MarchingSquares {
 	}
 
 	setCircleRadius(newRad) {
-		this.circleRadius = (newRad * this.width) / 1000;
+		this.circleRadius = newRad;
 		this.generateCircles();
 	}
 
