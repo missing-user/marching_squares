@@ -14,6 +14,8 @@ class MarchingSquares {
 		this.main_canvas.width = rect.width * dpr;
 		this.main_canvas.height = rect.height * dpr;
 		this.ctx.scale(dpr, dpr);
+		this.ctx.font = "16px Arial";
+		this.ctx.lineWidth = 2;
 
 		this.width = rect.width;
 		this.height = rect.height;
@@ -175,7 +177,7 @@ class MarchingSquares {
 					else this.ctx.fillStyle = primary;
 
 					this.ctx.fillText(
-						this.inputValues[y][x].toFixed(2),
+						this.inputValues[y][x].toFixed(1),
 						x * this.rez,
 						y * this.rez
 					);
@@ -191,6 +193,7 @@ class MarchingSquares {
 
 	drawLines() {
 		this.ctx.beginPath();
+		this.ctx.lineWidth = 2;
 		this.ctx.strokeStyle = secondary;
 		for (var y = 0; y < this.gridValues.length; y++) {
 			for (var x = 0; x < this.gridValues[y].length; x++) {

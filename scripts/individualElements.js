@@ -2,6 +2,9 @@ var typesList = [];
 var gridValuesDemo = document.getElementById("gridElementTypes");
 var demoContext = gridValuesDemo.getContext("2d");
 
+demoContext.font = "16px Arial";
+demoContext.lineWidth = 2;
+
 for (var i = 0; i < 16; i++) {
 	typesList.push(i.toString(2).padStart(4, "0"));
 }
