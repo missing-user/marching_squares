@@ -36,8 +36,7 @@
 
     <!-- header and intro text -->
     <div class="container">
-      <section style="height: 100vh;">
-
+      <section style="height: 90vh;">
         <div class="row" style="padding-top: 25%">
           <div class="twelve column">
             <h2>Marching Squares</h2>
@@ -65,179 +64,114 @@
             <button type="button" class="u-full-width" name="button" onclick="m.showCircles=!m.showCircles; this.textContent = m.showCircles?'hide circles':'show circles'">show circles</button>
           </div>
         </div>
+
       </section>
 
-      <!-- the explanation section -->
-      <div class="row">
-        <div class="twelve column">
-          <h4>What is this?</h4>
-          <p>This is an implementation of the
-            <a href="www.wikipedia.org/wiki/Marching_squares">marching squares algorithm</a>. It's point is to draw contours around regions of scalar values, e.g. height lines on maps or transparency masks. Here's an overview of how it works:
-            <br>
-            <br>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="one-half column">
-            <h5>1. Create some data</h5>
-            <p>First we create some data to draw contours around. In my case the values on the grid are the cumulative distances from these bouncing balls, but you could use any type of scalar field, like an image or height map.</p>
-          </div>
-          <div class="one-half column">
-            <canvas id="gridValuesDemo" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-        </div>
-        <hr>
-
-        <div class="row">
-          <div class="one-half column">
-            <h5>2. Fill a single cell</h5>
-            <p>The basic idea behind marching squares is, that we can treat each scalar entry of our grid as a cell corner. For each corner we check, if the value is above or below a certain threshold (in my case 1) and set it to be "inside" or "outside" of our
-              contour accordingly.
-              <br>
-              We then draw lines depending on what corners are supposed to be inside or outside of our contour. Since there's a finite number of possible corner configurations, we can explicitly specify cases for all 16 of them.
-            </p>
-          </div>
-          <div class="one-half column">
-            <canvas id="gridElementTypes" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-        </div>
-        <hr>
-
+      <section id="explanation">
+        <!-- the explanation section -->
         <div class="row">
           <div class="twelve column">
-            <h5>3. Fill all cells</h5>
-            <p>Now that we have decided, what sould happen with each individual cell, we can iterate through all of them and get a contour plot! Right now, the contours are still a bit blocky, but we can improve that by simply increasing the resolution.
-            </p>
+            <h4>What is this?</h4>
+            <p>This is an implementation of the
+              <a href="www.wikipedia.org/wiki/Marching_squares">marching squares algorithm</a>. It's point is to draw contours around regions of scalar values, e.g. height lines on maps or transparency masks. Here's an overview of how it works:
+              <br>
+              <br>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="one-half column">
-            <canvas id="coarseNoInterp" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-          <div class="one-half column">
-            <canvas id="noInterp" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-        </div>
-        <hr>
 
-        <div class="row">
-          <div class="twelve column">
-            <h5>4. Linear interpolation</h5>
-            <p>The final step is to smooth out the lines, by adjusting their position. For that, we linearly interpolate our threshold value between the two adjacent corner values. I for example am using a threshold value of 1, so if one corner point has a value
-              of 0.5 and The adjacent corner has a value of 1.5, the line segment will be placed exactly in the middle. If the corners had the values 0.5 and 3, the line would be placed a lot closer to the left. This kind of linear interpolation is given by the
-              following formula:
-              <br>
-              <br>
-              <code>f(x, y)(1 - x) / (y - x)</code>
-              <br>
-              With x being the left corner value, y the right and a threshold of 1.
-              <br>f(x, y) then returns a percentage describing the resulting points position.
-              <br>
-              <br>
-              With interpolation, the final contours look like this:</p>
+          <div class="row">
+            <div class="one-half column">
+              <h5>1. Create some data</h5>
+              <p>First we create some data to draw contours around. In my case the values on the grid are the cumulative distances from these bouncing balls, but you could use any type of scalar field, like an image or height map.</p>
+            </div>
+            <div class="one-half column">
+              <canvas id="gridValuesDemo" class="u-full-width" width="460" height="460"></canvas>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="one-half column">
-            <canvas id="interpolatedDemo" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-          <div class="one-half column">
-            <canvas id="highResDemo" class="u-full-width" width="460" height="460"></canvas>
-          </div>
-        </div>
-        <hr>
-        <div class="row" style="margin-bottom:10%;">
-          <div class="twelve column">
-            <h5>Resources:</h5>
-            <p>
+          <hr>
 
-              If you still want to learn more about this algorithm, check out
-              <a href="http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/">Jamie Wong's blogpost</a>
-              <br>
-              <a href="www.wikipedia.org/wiki/Marching_squares">The Wikipedia page</a>
-
-              or<br>
-              <a href="https://github.com/missing-user/marching_squares">my code</a>
-              for this page on github.
-
-            </p>
+          <div class="row">
+            <div class="one-half column">
+              <h5>2. Fill a single cell</h5>
+              <p>The basic idea behind marching squares is, that we can treat each scalar entry of our grid as a cell corner. For each corner we check, if the value is above or below a certain threshold (in my case 1) and set it to be "inside" or "outside" of our
+                contour accordingly.
+                <br>
+                We then draw lines depending on what corners are supposed to be inside or outside of our contour. Since there's a finite number of possible corner configurations, we can explicitly specify cases for all 16 of them.
+              </p>
+            </div>
+            <div class="one-half column">
+              <canvas id="gridElementTypes" class="u-full-width" width="460" height="460"></canvas>
+            </div>
           </div>
-        </div>
+          <hr>
+
+          <div class="row">
+            <div class="twelve column">
+              <h5>3. Fill all cells</h5>
+              <p>Now that we have decided, what sould happen with each individual cell, we can iterate through all of them and get a contour plot! Right now, the contours are still a bit blocky, but we can improve that by simply increasing the resolution.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="one-half column">
+              <canvas id="coarseNoInterp" class="u-full-width" width="460" height="460"></canvas>
+            </div>
+            <div class="one-half column">
+              <canvas id="noInterp" class="u-full-width" width="460" height="460"></canvas>
+            </div>
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="twelve column">
+              <h5>4. Linear interpolation</h5>
+              <p>The final step is to smooth out the lines, by adjusting their position. For that, we linearly interpolate our threshold value between the two adjacent corner values. I for example am using a threshold value of 1, so if one corner point has a value
+                of 0.5 and The adjacent corner has a value of 1.5, the line segment will be placed exactly in the middle. If the corners had the values 0.5 and 3, the line would be placed a lot closer to the left. This kind of linear interpolation is given by the
+                following formula:
+                <br>
+                <br>
+                <code>f(x, y)(1 - x) / (y - x)</code>
+                <br>
+                With x being the left corner value, y the right and a threshold of 1.
+                <br>f(x, y) then returns a percentage describing the resulting points position.
+                <br>
+                <br>
+                With interpolation, the final contours look like this:</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="one-half column">
+              <canvas id="interpolatedDemo" class="u-full-width" width="460" height="460"></canvas>
+            </div>
+            <div class="one-half column">
+              <canvas id="highResDemo" class="u-full-width" width="460" height="460"></canvas>
+            </div>
+          </div>
+          <hr>
+          <div class="row" style="margin-bottom:10%;">
+            <div class="twelve column">
+              <h5>Resources:</h5>
+              <p>
+
+                If you still want to learn more about this algorithm, check out
+                <a href="http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/">Jamie Wong's blogpost</a>
+                <br>
+                <a href="www.wikipedia.org/wiki/Marching_squares">The Wikipedia page</a>
+
+                or<br>
+                <a href="https://github.com/missing-user/marching_squares">my code</a>
+                for this page on github.
+
+              </p>
+            </div>
+          </div>
+        </section>
 
       </div>
     </div>
 
     <script type="text/javascript" src="scripts/script_instanced.js"></script>
     <script type="text/javascript" src="scripts/individualElements.js"></script>
-
-    <script type="text/javascript">
-
-      var m = new MarchingSquares("canvas", {
-        circleRadius: 40,
-        stepFunc() {
-          this.moveCircles();
-          this.updateGridPoints();
-          this.drawLines();
-          this.drawPoints();
-          if (this.showCircles) {
-            this.drawCircles();
-          }
-        }
-      })
-      window.addEventListener('resize', m.setCanvasSize.bind(m));
-
-      window.onscroll = function () {
-        scrollFunction()
-      };
-
-      function scrollFunction() {
-        endpoint = window.innerHeight
-        startpoint = window.innerHeight / 8
-        if (document.documentElement.scrollTop > endpoint + startpoint) {
-          m.paused = true
-        } else {
-          //blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 12)); m.ctx.filter = ["blur(", blur, "px)"].join('');
-          m.ctx.globalAlpha = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 1, 0))
-          m.paused = false
-        }
-      }
-
-      var gridValuesDemo = new MarchingSquares("gridValuesDemo", {
-        resolution: 50,
-        interpolation: false,
-        circleCount: 5,
-        circleRadius: 80,
-        stepFunc() {
-          this.moveCircles();
-          this.updateGridPoints();
-          this.drawCircles();
-          this.drawPoints();
-        }
-      });
-      var coarseNoInterp = new MarchingSquares("coarseNoInterp", {
-        resolution: 50,
-        circleCount: 5,
-        interpolation: false,
-        circleRadius: 80
-      });
-
-      var noInterp = new MarchingSquares("noInterp", {
-        resolution: 10,
-        circleCount: 5,
-        interpolation: false
-      });
-
-      var highResDemo = new MarchingSquares("highResDemo", {
-        resolution: 10,
-        circleCount: 8
-      });
-
-      var interpolatedDemo = new MarchingSquares("interpolatedDemo", {
-        resolution: 50,
-        circleCount: 5,
-        circleRadius: 80
-      });
-    </script>
+    <script type="text/javascript" src="scripts/script.js"></script>
   </body>
 </html>
