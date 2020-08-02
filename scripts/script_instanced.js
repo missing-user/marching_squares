@@ -270,10 +270,8 @@ class MarchingSquares {
 
 	stepSimulation() {
 		//draw stuff
-		if (!this.paused) {
-			this.ctx.clearRect(0, 0, this.width, this.height);
-			this.stepFunc();
-		}
+		this.ctx.clearRect(0, 0, this.width, this.height);
+		this.stepFunc();
 
 		requestAnimationFrame(this.stepSimulation.bind(this));
 	}

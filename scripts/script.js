@@ -1,15 +1,19 @@
 var m = new MarchingSquares("canvas", {
 	circleRadius: 40,
 	stepFunc() {
-		this.moveCircles();
-		this.updateGridPoints();
+		if (!this.paused) {
+			this.moveCircles();
+			this.updateGridPoints();
+		}
 		this.drawLines();
 		this.drawPoints();
 
 		this.endpoint = (2 * window.innerHeight) / 3;
 		this.startpoint = window.innerHeight / 8;
+
 		if (document.documentElement.scrollTop > this.endpoint + this.startpoint) {
 			m.paused = true;
+			this.ctx.globalAlpha = 0;
 		} else {
 			//blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 12)); m.ctx.filter = ["blur(", blur, "px)"].join('');
 			this.ctx.globalAlpha = Math.max(
