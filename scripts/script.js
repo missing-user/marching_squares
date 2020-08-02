@@ -5,6 +5,26 @@ var m = new MarchingSquares("canvas", {
 		this.updateGridPoints();
 		this.drawLines();
 		this.drawPoints();
+
+		this.endpoint = (2 * window.innerHeight) / 3;
+		this.startpoint = window.innerHeight / 8;
+		if (document.documentElement.scrollTop > this.endpoint + this.startpoint) {
+			m.paused = true;
+		} else {
+			//blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 12)); m.ctx.filter = ["blur(", blur, "px)"].join('');
+			this.ctx.globalAlpha = Math.max(
+				0,
+				lerp(
+					document.documentElement.scrollTop - this.startpoint,
+					0,
+					this.endpoint,
+					1,
+					0
+				)
+			);
+			this.paused = false;
+		}
+
 		if (this.showCircles) {
 			this.drawCircles();
 		}
@@ -23,19 +43,6 @@ window.onscroll = function() {
 };
 
 function scrollFunction() {
-	endpoint = (2 * window.innerHeight) / 3;
-	startpoint = window.innerHeight / 8;
-	if (document.documentElement.scrollTop > endpoint + startpoint) {
-		m.paused = true;
-	} else {
-		//blur = Math.max(0, lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 0, 12)); m.ctx.filter = ["blur(", blur, "px)"].join('');
-		m.ctx.globalAlpha = Math.max(
-			0,
-			lerp(document.documentElement.scrollTop - startpoint, 0, endpoint, 1, 0)
-		);
-		m.paused = false;
-	}
-
 	if (document.documentElement.scrollTop > 10)
 		explanationSection.classList.add("show");
 }
