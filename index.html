@@ -111,14 +111,14 @@
         <div class="one-half column">
           <h3>Fill a single cell</h3>
           <p>Now let's get into the fancy stuff.
-            First we have to decide a value, that we want to draw our contours around. I chose one, so all points
+            First we have to decide on a value, that we want to draw our contours around. I chose one, so all points
             greater than one will be contained in the resulting blobs, and all values smaller than one will be outside.
             <br>
 
-            To do that, we treat each grid point as one of four cell corners. For each corner we check, if the value is
-            above or below a the threshold. The resulting cell will have one of the 16 possible configurations of
-            corners that are "inside" or "outside" the contour. Then we just do a lookup, and draw the according lines
-            over the cell, as shown in the next image.
+            To achieve that, we treat each grid point as one of four cell corners. For each corner we check if the value is
+            above or below the threshold value and save that information. The resulting cell will have one of the 16 possible configurations of
+            corners that are "inside" or "outside" the contour. Then we just do a lookup, and draw the according one of the 16 line
+            configurations over the cell, as shown in the next image.
           </p>
         </div>
         <div class="one-half column">
