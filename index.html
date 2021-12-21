@@ -76,7 +76,14 @@
       </div>
 
     </section>
-
+    <noscript>
+      <style>
+        #explanation {
+          opacity: 1 !important;
+        }
+      </style>
+      <em>JavaScript is required to see the interactive demo.</em>
+    </noscript>
     <section id="explanation">
       <!-- the explanation section -->
       <div class="row">
@@ -87,7 +94,8 @@
             enough, right? Let's break down what that means. In computer graphics, we oftentimes have a grid of values,
             e.g. when working with images. Maybe the image is a height map of the natural terrain around us, then it
             would be interesting to draw contours around areas, that are at a certain elevation, like the contour lines
-            commonly seen in geographical maps. The marching squares algorithm gives us an easy way to do that, and here's how:
+            commonly seen in geographical maps. The marching squares algorithm gives us an easy way to do that, and
+            here's how:
             <br>
         </div>
       </div>
@@ -117,9 +125,12 @@
             greater than one will be contained in the resulting blobs, and all values smaller than one will be outside.
             <br>
 
-            To achieve that, we treat each grid point as one of four cell corners. For each corner we check if the value is
-            above or below the threshold value and save that information. The resulting cell will have one of the 16 possible configurations of
-            corners that are "inside" or "outside" the contour. Then we just do a lookup, and draw the according one of the 16 line
+            To achieve that, we treat each grid point as one of four cell corners. For each corner we check if the value
+            is
+            above or below the threshold value and save that information. The resulting cell will have one of the 16
+            possible configurations of
+            corners that are "inside" or "outside" the contour. Then we just do a lookup, and draw the according one of
+            the 16 line
             configurations over the cell, as shown in the next image.
           </p>
         </div>
@@ -196,6 +207,6 @@
   <script type="text/javascript" src="scripts/individualElements.js"></script>
   <script type="text/javascript" src="scripts/script.js"></script>
 </body>
-<script>if(!!localStorage.getItem("_dev")&&!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"missing-user",utcoffset:"1"}))};sessionStorage.setItem("_swa","1");</script>
+<script>if (!!localStorage.getItem("_dev") && !sessionStorage.getItem("_swa") && document.referrer.indexOf(location.protocol + "//" + location.host) !== 0) { fetch("https://counter.dev/track?" + new URLSearchParams({ referrer: document.referrer, screen: screen.width + "x" + screen.height, user: "missing-user", utcoffset: "1" })) }; sessionStorage.setItem("_swa", "1");</script>
 
 </html>
