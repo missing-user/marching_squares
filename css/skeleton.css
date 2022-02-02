@@ -231,7 +231,7 @@ input[type="range"]  {
   background-color: #bbb;
   height: 1px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 1rem;
   outline: none;
 }
 input[type="range"]::-webkit-slider-thumb {
